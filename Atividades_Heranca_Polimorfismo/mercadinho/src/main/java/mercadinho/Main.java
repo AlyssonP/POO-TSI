@@ -2,7 +2,7 @@ package mercadinho;
 
 public class Main {
     public static void main(String[] args) {
-        Cliente cli01 = new ClienteRegular("Maria",235.50);
+        Cliente cli01 = new ClienteRegular("José",208.90);
         Cliente cli02 = new ClienteVip("João",369.80,"1234 5678 9101 1213");
         Cliente cli03 = new ClienteOuroVip("Alysson",369.80,"1111 2222 3333 4444", "Guarabira");
 
