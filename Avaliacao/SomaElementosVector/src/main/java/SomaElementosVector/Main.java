@@ -5,14 +5,14 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
 
-        int[] vector = {3,2,4};
-        Solution solution = new Solution(vector,6);
-        int[] res = solution.twoSum();
-        int[] resRec = solution.twoSumRec(0,0);
-        int[] resON = solution.twoSumON();
+        Solution solution = new Solution();
+        int[] vector = {3,6,2,4};
+        int target = 6;
+        int[] res = solution.twoSum(vector,target);
+        int[] resRec = solution.twoSumRec(vector,target);
+
         System.out.println(Arrays.toString(res));
-        System.out.println(Arrays.toString(resRec));
-        // System.out.println(Arrays.toString(resON));
+        System.out.println("Two Sum recursivo: "+Arrays.toString(resRec));
 
     }
 }

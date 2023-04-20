@@ -1,18 +1,8 @@
 package SomaElementosVector;
 
 public class Solution {
-    // Atributos
-    private int[] vector;
-    private int target;
-
-    // Construtor
-    public Solution(int[] vector, int target) {
-        this.vector = vector;
-        this.target = target;
-    }
-
     // Métodos
-    public int[] twoSum() {
+    public int[] twoSum( int[] vector, int target) {
         for(int i = 0; i < vector.length; i++) {
             for(int j = i+1; j < vector.length; j++) {
                 if(vector[i]+vector[j] == target) {
@@ -23,22 +13,34 @@ public class Solution {
         return new int[] {-1,-1};
     }
 
-    public int[] twoSumRec(int a, int b) {
+    public int[] twoSumRec(int[] vector, int target) {
+        return twoSumRec(vector, target, 0, 1);
+    }
+    public int[] twoSumRec(int[] vector, int target, int a, int b) {
         if(a == vector.length) {
-            int[] res = {-1,-1};
-            return res;
+            return new int[] {-1,-1};
         }
         if(vector[a] + vector[b] == target) {
-            int[] res = {a,b};
-            return res;
+            return new int[] {a,b};
         }
         if(b < vector.length-1){
-            return twoSumRec(a, ++b);
+            return twoSumRec(vector, target,a, ++b);
         }
-        return twoSumRec(++a, ++a);
+        return twoSumRec(vector, target,++a, a+1);
     }
 
-    public int[] twoSumON() {
+    public int[] twoSum02(int[] vector, int target) {
+        int a = 0;
+        int b = 1;
+        while(a < vector.length) {
+            if(vector[a] + vector[b] == target) {
+                return new int[] {a,b};
+            }
+            if(b == vector.length-1) {
+                a++;
+                b = a+1;
+            }
+        }
         return new int[] {-1,-1};
     }
 }
