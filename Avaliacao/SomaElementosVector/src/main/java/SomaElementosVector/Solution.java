@@ -40,6 +40,7 @@ public class Solution {
                 a++;
                 b = a+1;
             }
+            ++b;
         }
         return new int[] {-1,-1};
     }
