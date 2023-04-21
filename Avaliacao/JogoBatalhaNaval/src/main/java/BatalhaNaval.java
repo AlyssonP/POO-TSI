@@ -43,8 +43,10 @@ public class BatalhaNaval {
                     acertosJogador01++;
                 }
             }
-            if (acertosJogador01 >= 3) {
+            if (acertosJogador01 >= 6) {
                 System.out.printf("O jogador %s ganhou a batalha.\n",jogador01.getNome());
+                System.out.println("Tabulheiro do oponente:");
+                jogador01.tabuleiro(jogador01.getTabuleiroOponente());
                 break;
             }
 
@@ -57,8 +59,10 @@ public class BatalhaNaval {
                     acertosJogador02++;
                 }
             }
-            if (acertosJogador02 >= 3) {
+            if (acertosJogador02 >= 6) {
                 System.out.printf("O jogador %s ganhou a batalha.\n", jogador02.getNome());
+                System.out.println("Tabulheiro do oponente:");
+                jogador02.tabuleiro(jogador02.getTabuleiroOponente());
                 break;
             }
         }

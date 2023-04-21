@@ -3,24 +3,24 @@ public class Jogador {
     // Atributos
     private Scanner ent = new Scanner(System.in);
     private String nome;
-    private String[][] meuTabuleiro;
-    private String[][] tabuleiroOponente;
+    private char[][] meuTabuleiro;
+    private char[][] tabuleiroOponente;
 
     // Construtor
     public Jogador(String nome) {
         this.nome = nome;
-        meuTabuleiro = new String[8][8];
-        tabuleiroOponente = new String[8][8];
+        meuTabuleiro = new char[8][8];
+        tabuleiroOponente = new char[8][8];
     }
 
     // Métodos Espeiciais
-    public void tabuleiro(String[][] tabuleiro) {
+    public void tabuleiro(char[][] tabuleiro) {
         System.out.println("    1   2   3   4   5   6   7   8");
         for (int i = 0; i < 8; i++) {
             //System.out.println("  ---------------------------------");
             System.out.print((i+1)+" |");
             for (int j = 0; j < 8; j++) {
-                if(tabuleiro[i][j] != null) {
+                if(tabuleiro[i][j] != 0) {
                     System.out.print(" "+tabuleiro[i][j] +" |");
                 } else {
                     System.out.print("   |");
@@ -44,46 +44,57 @@ public class Jogador {
         }
         //System.out.println("  ---------------------------------");
     }
+    public boolean podeRegistrarArma(char[][] tabuleiro, int qtdEspaco, int l , int c) {
+        if(c+qtdEspaco-1 <= tabuleiro.length-1) {
+            for(int i = 0; i < qtdEspaco; i++) {
+                if(tabuleiro[l][c+i] != 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean registrarArma(char arma, int qtdEspaco, int l , int c) {
+        boolean isAutorizado = podeRegistrarArma(this.meuTabuleiro, qtdEspaco, l, c);
+        if(isAutorizado) {
+            for(int i = 0; i < qtdEspaco; i++) {
+                this.meuTabuleiro[l][c++] = arma;
+            }
+            return true;
+        } return false;
+    }
+
+//    public boolean registrarArma(int arma, int qtdEspaco, int l , int c) {
+//
+//    }
     public void adicionarArmas() {
-        int s = 3;
-        int c = 2;
-        int p = 1;
         System.out.printf("=-=-=-= Adicionando armas ao tabuleiro de %s. =-=-=-=\n",nome);
         System.out.println("Opções de armas:");
-        System.out.println(s+" Submarinos = s");
-        System.out.println(c+" Cruzadores = c");
-        System.out.println(p+" Porta-aviões = p");
+        System.out.println("Submarinos -> s");
+        System.out.println("Cruzadores -> c");
+        System.out.println("Porta-aviões -> p");
 
         System.out.println("TABULEIRO DA BATALHA NAVAL");
         tabuleiro();
 
-        int[] posicoes = new int[2];
-        String arma;
-        int i = 0;
-        while(i < 3) {
-            System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
-            System.out.print("Informe a arma: ");
-            arma = ent.nextLine();
+        int[] posicoes;
+        boolean isRegistrados;
 
-            System.out.print("Posição Ex 1:1: ");
-            String[] pos = ent.nextLine().split(":");
-            posicoes[0] = Integer.parseInt(pos[0]);
-            posicoes[1] = Integer.parseInt(pos[1]);
-
-            if(arma.equals("s") && s > 0) {
-                meuTabuleiro[posicoes[0]-1][posicoes[1]-1] = arma;
-                s--;
-                i++;
-            } else if(arma.equals("c") && c > 0) {
-                meuTabuleiro[posicoes[0]-1][posicoes[1]-1] = arma;
-                c--;
-                i++;
-            } else if (arma.equals("p") && p > 0) {
-                meuTabuleiro[posicoes[0]-1][posicoes[1]-1] = arma;
-                p--;
-                i++;
-            } else {
-                System.out.println("Houve algum problema ao informar.");
+        String[] nomesArmas = {"Submarino", "Cruzador", "Porta-avião"};
+        int[] qtdEspaco = {3,2,1};
+        char [] siglas = {'s', 'c', 'p'};
+        for(int i = 0; i < 3; i++) {
+            isRegistrados = false;
+            while(!isRegistrados) {
+                System.out.printf("Digite a posição do '%s': ",nomesArmas[i]);
+                String[] pos = ent.nextLine().split(":");
+                posicoes = new int[] {Integer.parseInt(pos[0])-1,Integer.parseInt(pos[1])-1};
+                isRegistrados = registrarArma( siglas[i] ,qtdEspaco[i] ,posicoes[0],posicoes[1]);
+                if(isRegistrados) {
+                    System.out.println("Arma Registrada com sucesso!");
+                } else { System.out.println("Houve algum conflito ao registrar a posição da arma.");}
             }
         }
 
@@ -98,30 +109,34 @@ public class Jogador {
         int[] posicoes = {Integer.parseInt(p[0])-1,Integer.parseInt(p[1])-1};
 
         boolean acertou = this.verificarSeAcertou(posicoes,oponente.getMeuTabuleiro());
+        if(this.tabuleiroOponente[posicoes[0]][posicoes[1]] == 's' || this.tabuleiroOponente[posicoes[0]][posicoes[1]] == 'c' || this.tabuleiroOponente[posicoes[0]][posicoes[1]] == 'p') {
+            System.out.println("Você já acertou esse tiro antes.");
+            return false;
+        }
         this.registrarTiro(posicoes, oponente.getMeuTabuleiro(), acertou);
 
-        if (acertou) {
+        if(acertou) {
             System.out.println("Tiro bem sucedido!!");
-            return true;
         } else {
             System.out.println("O acertou o mar");
-            return false;
         }
+
+        return acertou;
     }
 
-    public boolean verificarSeAcertou(int[] posicoes, String[][] tabuleiroOponente) {
-        if(tabuleiroOponente[posicoes[0]][posicoes[1]] != null) {
+    public boolean verificarSeAcertou(int[] posicoes, char[][] tabuleiroOponente) {
+        if(tabuleiroOponente[posicoes[0]][posicoes[1]] != 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public void registrarTiro(int[] posicoes, String[][] tabuleiroOponente, boolean acertou) {
+    public void registrarTiro(int[] posicoes, char[][] tabuleiroOponente, boolean acertou) {
         if(acertou) {
             this.tabuleiroOponente[posicoes[0]][posicoes[1]] = tabuleiroOponente[posicoes[0]][posicoes[1]];
         } else {
-            this.tabuleiroOponente[posicoes[0]][posicoes[1]] = "X";
+            this.tabuleiroOponente[posicoes[0]][posicoes[1]] = 'X';
         }
     }
 
@@ -129,11 +144,11 @@ public class Jogador {
     public String getNome() {
         return nome;
     }
-    public String[][] getMeuTabuleiro() {
+    public char[][] getMeuTabuleiro() {
         return meuTabuleiro;
     }
 
-    public String[][] getTabuleiroOponente() {
+    public char[][] getTabuleiroOponente() {
         return tabuleiroOponente;
     }
 }
