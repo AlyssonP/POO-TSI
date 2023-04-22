@@ -45,12 +45,27 @@ public class Jogador {
         //System.out.println("  ---------------------------------");
     }
     public boolean podeRegistrarArma(char[][] tabuleiro, int qtdEspaco, int l , int c) {
+        // Verificando se cabe no tabuleiro a partir da coluna informada.
         if(c+qtdEspaco-1 <= tabuleiro.length-1) {
+            // Verificando se existe espaço de um quadrado na frente e atrás
+            if(c != 0 && c != (tabuleiro.length-1-qtdEspaco)) {
+                // Caso a arma ocupa mais de um espaço
+                if( qtdEspaco != 1 && (tabuleiro[l][c-1] != 0 || tabuleiro[l][c+qtdEspaco-1] != 0)) {
+                    return false;
+                }
+                // Caso ele apenas culpa um espaço
+                else if(qtdEspaco == 1 && (tabuleiro[l][c-1] != 0 || tabuleiro[l][c+qtdEspaco] != 0)) {
+                    return false;
+                }
+            }
+
+            // Verificar se tem arma no espaço
             for(int i = 0; i < qtdEspaco; i++) {
                 if(tabuleiro[l][c+i] != 0) {
                     return false;
                 }
             }
+
             return true;
         }
         return false;
@@ -82,9 +97,11 @@ public class Jogador {
         int[] posicoes;
         boolean isRegistrados;
 
+        // Vetores de Indetificações
         String[] nomesArmas = {"Submarino", "Cruzador", "Porta-avião"};
         int[] qtdEspaco = {3,2,1};
         char [] siglas = {'s', 'c', 'p'};
+
         for(int i = 0; i < 3; i++) {
             isRegistrados = false;
             while(!isRegistrados) {
