@@ -161,11 +161,21 @@ public class Jogador {
     public String getNome() {
         return nome;
     }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public char[][] getMeuTabuleiro() {
         return meuTabuleiro;
+    }
+    public void setMeuTabuleiro(char[][] meuTabuleiro) {
+        this.meuTabuleiro = meuTabuleiro;
     }
 
     public char[][] getTabuleiroOponente() {
         return tabuleiroOponente;
+    }
+    public void setTabuleiroOponente(char[][] tabuleiroOponente) {
+        this.tabuleiroOponente = tabuleiroOponente;
     }
 }

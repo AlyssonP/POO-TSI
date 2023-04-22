@@ -13,7 +13,9 @@ public class BatalhaNaval {
 
     // Métodos Especiais
     public void adicionarArmas() {
-        System.out.println("Informando as armas e posições.");
+        System.out.println("-------------------------------------");
+        System.out.println("  Informando as posições das armas.");
+        System.out.println("-------------------------------------");
         jogador01.adicionarArmas();
         jogador02.adicionarArmas();
         isArmasAdicionada = true;
@@ -66,6 +68,24 @@ public class BatalhaNaval {
                 break;
             }
         }
+    }
+
+    // Métodos Especiais
+    public Jogador getJogador01() {
+        return jogador01;
+    }
+
+    public Jogador getJogador02() {
+        return jogador02;
+    }
+
+    public boolean getIsArmasAdicionadas() {
+        return isArmasAdicionada;
+    }
+
+    // ToString
+    public String toString() {
+        return String.format("Nome do Jogador 01: %S; Nome do Jogador 02: %S; As armas já estão adicionadas? %b;", jogador01.getNome(), jogador02.getNome(), isArmasAdicionada);
     }
 
 }
