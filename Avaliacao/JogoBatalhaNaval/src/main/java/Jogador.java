@@ -54,8 +54,13 @@ public class Jogador {
                     return false;
                 }
                 // Caso ele apenas culpa um espaço
-                else if(qtdEspaco == 1 && (tabuleiro[l][c-1] != 0 || tabuleiro[l][c+qtdEspaco] != 0)) {
-                    return false;
+                else if(qtdEspaco == 1) {
+                    if(tabuleiro[l][c-1] != 0){
+                        return false;
+                    }
+                    if(tabuleiro[l][c+qtdEspaco] != 0) {
+                        return false;
+                    }
                 }
             }
 
