@@ -1,4 +1,4 @@
-package SomaElementosVector;
+package TwoSum;
 
 public class Solution {
     // Métodos

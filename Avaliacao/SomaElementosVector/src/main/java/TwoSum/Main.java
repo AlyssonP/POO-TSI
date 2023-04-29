@@ -1,4 +1,4 @@
-package SomaElementosVector;
+package TwoSum;
 
 import java.util.Arrays;
 
