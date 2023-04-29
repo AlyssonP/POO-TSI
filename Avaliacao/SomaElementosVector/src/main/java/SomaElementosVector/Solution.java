@@ -28,20 +28,4 @@ public class Solution {
         }
         return twoSumRec(vector, target,++a, a+1);
     }
-
-    public int[] twoSum02(int[] vector, int target) {
-        int a = 0;
-        int b = 1;
-        while(a < vector.length) {
-            if(vector[a] + vector[b] == target) {
-                return new int[] {a,b};
-            }
-            if(b == vector.length-1) {
-                a++;
-                b = a+1;
-            }
-            ++b;
-        }
-        return new int[] {-1,-1};
-    }
 }
