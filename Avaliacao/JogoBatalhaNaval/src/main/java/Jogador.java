@@ -17,7 +17,6 @@ public class Jogador {
     public void tabuleiro(char[][] tabuleiro) {
         System.out.println("    1   2   3   4   5   6   7   8");
         for (int i = 0; i < 8; i++) {
-            //System.out.println("  ---------------------------------");
             System.out.print((i+1)+" |");
             for (int j = 0; j < 8; j++) {
                 if(tabuleiro[i][j] != 0) {
@@ -28,39 +27,35 @@ public class Jogador {
             }
             System.out.println();
         }
-        //System.out.println("  ---------------------------------");
     }
 
     // Tabuleiro Vazio
     public void tabuleiro() {
         System.out.println("    1   2   3   4   5   6   7   8");
         for (int i = 0; i < 8; i++) {
-            //System.out.println("  ---------------------------------");
             System.out.print((i+1)+" |");
             for (int j = 0; j < 8; j++) {
                 System.out.print("   |");
             }
             System.out.println();
         }
-        //System.out.println("  ---------------------------------");
     }
     public boolean podeRegistrarArma(char[][] tabuleiro, int qtdEspaco, int l , int c) {
         // Verificando se cabe no tabuleiro a partir da coluna informada.
         if(c+qtdEspaco-1 <= tabuleiro.length-1) {
-            // Verificando se existe espaço de um quadrado na frente e atrás
-            if(c != 0 && c != (tabuleiro.length-1-qtdEspaco)) {
-                // Caso a arma ocupa mais de um espaço
-                if( qtdEspaco != 1 && (tabuleiro[l][c-1] != 0 || tabuleiro[l][c+qtdEspaco-1] != 0)) {
+            // Verificando se existe espaço de um quadrado na frente e atrás:
+            // Caso se oculpa mais de 1 espaço:
+            // - Se a coluna é maior que 0 "E" se culpa até o final do tabuleiro "E" se tem espaço na frente OU atrás.
+            if(qtdEspaco > 1 && (c > 0 && c <= (tabuleiro.length-qtdEspaco)) && (tabuleiro[l][c-1] != 0 || tabuleiro[l][c+(qtdEspaco-1)] != 0))
+                return false;
+            // Caso se oculp 1 espaço
+            if(qtdEspaco == 1 && (c > 0 && c <= (tabuleiro.length-qtdEspaco))) {
+                // Se a coluna for a ultima E se tiver algo na coluna anterior
+                if(c == (tabuleiro.length-1) && tabuleiro[l][c-1] != 0) {
                     return false;
-                }
-                // Caso ele apenas culpa um espaço
-                else if(qtdEspaco == 1) {
-                    if(tabuleiro[l][c-1] != 0){
-                        return false;
-                    }
-                    if(tabuleiro[l][c+qtdEspaco] != 0) {
-                        return false;
-                    }
+                    // Se não a coluna for menor que o tamanho do tabuleiro E se houver algo na coluna anterior OU posterior.
+                } else if(c < (tabuleiro.length-1) && (tabuleiro[l][c-1] != 0 || tabuleiro[l][c+qtdEspaco] != 0)) {
+                    return false;
                 }
             }
 
@@ -86,9 +81,6 @@ public class Jogador {
         } return false;
     }
 
-//    public boolean registrarArma(int arma, int qtdEspaco, int l , int c) {
-//
-//    }
     public void adicionarArmas() {
         System.out.printf("=-=-=-= Adicionando armas ao tabuleiro de %s. =-=-=-=\n",nome);
         System.out.println("Opções de armas:");
