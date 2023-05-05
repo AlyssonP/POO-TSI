@@ -14,7 +14,7 @@ public class ClienteOuroVip extends ClienteVip {
     public double calculaPagamento() {
         return super.getValorCompra() - (super.getValorCompra()*0.15);
     }
-
+    // Sobrescrita
     public String toString() {
         return String.format(super.toString()+" Endereço: %s;", endereco);
     }
