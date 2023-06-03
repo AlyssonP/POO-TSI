@@ -1,3 +1,5 @@
+package AluguelQuartos;
+
 public class Quarto {
     // Atributos
     private double valorDiaria;

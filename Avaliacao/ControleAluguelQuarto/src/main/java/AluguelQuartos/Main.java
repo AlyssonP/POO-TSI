@@ -1,3 +1,5 @@
+package AluguelQuartos;
+
 public class Main {
     public static void main(String[] args){
         CadastroResidencia residencias = new CadastroResidencia();

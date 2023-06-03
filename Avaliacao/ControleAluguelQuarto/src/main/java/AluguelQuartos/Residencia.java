@@ -1,3 +1,5 @@
+package AluguelQuartos;
+
 import java.util.ArrayList;
 public class Residencia {
     // Atributos

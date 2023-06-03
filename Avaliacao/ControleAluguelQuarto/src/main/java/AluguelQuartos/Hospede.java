@@ -1,3 +1,5 @@
+package AluguelQuartos;
+
 public class Hospede {
     // Atributos
     private String nome, cpf, endereco, celular, email;

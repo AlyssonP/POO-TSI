@@ -1,3 +1,5 @@
+package AluguelQuartos;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeFormatter;
@@ -39,6 +41,6 @@ public class Aluguel {
 
     // toString
     public String toString() {
-        return String.format("Nome hóspede: %s; Data e Hora de Entrada: %s; Data e Hora de Saída: %s; Quantidade de diárias: %d; Valor Aluguel: %.2f;",hospede.getNome(),dataHoraEntrada.format(formatter),dataHoraSaida.format(formatter),this.quantidadeDiaria(), this.valorTotal());
+        return String.format("Nome hóspede: %s; Data e Hora de Entrada: %s; Data e Hora de Saída: %s; Quantidade de diárias: %d; Valor AluguelQuartos.Aluguel: %.2f;",hospede.getNome(),dataHoraEntrada.format(formatter),dataHoraSaida.format(formatter),this.quantidadeDiaria(), this.valorTotal());
     }
 }

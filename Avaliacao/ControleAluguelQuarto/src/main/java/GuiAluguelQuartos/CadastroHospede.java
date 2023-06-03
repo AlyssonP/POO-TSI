@@ -14,7 +14,7 @@ import AluguelQuartos.HospedeRepository;
 public class CadastroHospede extends javax.swing.JFrame {
 
     /**
-     * Creates new form CadastroHospede
+     * Creates new form AluguelQuartos.CadastroHospede
      */
     public CadastroHospede() {
         initComponents();

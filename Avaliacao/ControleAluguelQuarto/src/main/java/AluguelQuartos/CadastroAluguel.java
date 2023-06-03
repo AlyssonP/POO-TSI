@@ -1,3 +1,7 @@
+package AluguelQuartos;
+
+import AluguelQuartos.Aluguel;
+
 import java.util.ArrayList;
 
 public class CadastroAluguel {

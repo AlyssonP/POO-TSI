@@ -1,7 +1,10 @@
+package AluguelQuartos;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class HospedeRepository {
     
@@ -27,7 +30,8 @@ public class HospedeRepository {
         }
     }
     
-    public void consultarHospede() {
+    public ArrayList<Hospede> consultarHospede() {
+        ArrayList<Hospede> hospedes = new ArrayList<Hospede>();
         Connection connection = null;
         try {
             connection = ConnectionDB.getConnection();
@@ -44,10 +48,9 @@ public class HospedeRepository {
                 String email = resultSet.getString("email");
                 
                 hospede = new Hospede(nome, cpf, endereco, celular, email);
-                System.out.println(hospede);
-                
+                hospedes.add(hospede);
+
             }
-            
             
         } catch(SQLException e) {
             System.err.println("Erro ao inserir dados do hospede: " + e.getMessage());
@@ -55,6 +58,7 @@ public class HospedeRepository {
             if (connection != null) {
                 ConnectionDB.closeConnection(connection);
             }
+            return hospedes;
         }
     }
  
