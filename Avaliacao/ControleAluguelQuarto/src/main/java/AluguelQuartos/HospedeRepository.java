@@ -49,8 +49,9 @@ public class HospedeRepository {
                 
                 hospede = new Hospede(nome, cpf, endereco, celular, email);
                 hospedes.add(hospede);
-
+                
             }
+            return hospedes;
             
         } catch(SQLException e) {
             System.err.println("Erro ao inserir dados do hospede: " + e.getMessage());
@@ -64,4 +65,3 @@ public class HospedeRepository {
  
 }
     
-
