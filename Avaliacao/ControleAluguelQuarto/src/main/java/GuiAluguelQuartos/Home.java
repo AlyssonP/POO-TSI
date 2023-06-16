@@ -8,8 +8,6 @@ import AluguelQuartos.Hospede;
 import AluguelQuartos.HospedeRepository;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,14 +15,16 @@ import javax.swing.table.DefaultTableModel;
  * @author Alysson Pereira
  */
 public class Home extends javax.swing.JFrame {
-
+    private Color colorEnable, colorDisabled;
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
         setTitle("Aluguel Quartos");
-        btnHomeMouseClicked(null);
+        colorEnable = new Color(161,193,224);
+        colorDisabled = new Color(82,142,201);
+        btnHomeMouseClicked(null);   
     }
 
     /**
@@ -52,8 +52,8 @@ public class Home extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         HospedesPage = new javax.swing.JPanel();
         TitleHospedes = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        CadastrarHospede = new javax.swing.JButton();
+        AtualizarDadosHospedes = new javax.swing.JButton();
         btnBuscarHospede = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
@@ -61,8 +61,14 @@ public class Home extends javax.swing.JFrame {
         TabelaHospedes = new javax.swing.JTable();
         AlugueisPage = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TabelaAlugueis = new javax.swing.JTable();
+        CadastrarHospede1 = new javax.swing.JButton();
+        AtualizarDadosHospedes1 = new javax.swing.JButton();
         ResidenciasPage = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        scrollResidencias = new javax.swing.JScrollPane();
+        tableResidencias = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -229,17 +235,17 @@ public class Home extends javax.swing.JFrame {
         TitleHospedes.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         TitleHospedes.setText("Hospedes");
 
-        jButton1.setText("Cadastrar Hospede");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        CadastrarHospede.setText("Cadastrar Hospede");
+        CadastrarHospede.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                CadastrarHospedeActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Atualizar dados");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        AtualizarDadosHospedes.setText("Atualizar dados");
+        AtualizarDadosHospedes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                AtualizarDadosHospedesActionPerformed(evt);
             }
         });
 
@@ -286,9 +292,9 @@ public class Home extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscarHospede))
                     .addGroup(HospedesPageLayout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(CadastrarHospede)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
+                        .addComponent(AtualizarDadosHospedes))
                     .addComponent(jLabel1)
                     .addComponent(TitleHospedes, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE))
@@ -307,11 +313,11 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addGroup(HospedesPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(88, Short.MAX_VALUE))
+                    .addComponent(CadastrarHospede)
+                    .addComponent(AtualizarDadosHospedes))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         Main.add(HospedesPage, "cardHospedes");
@@ -321,48 +327,101 @@ public class Home extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel8.setText("Alugueis");
 
+        TabelaAlugueis.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome Hospede", "Cod_quarto", "Endereco da residencia", "Data de Entrada", "Data Saida", "Quatidade Diária", "Valor Aluguel"
+            }
+        ));
+        jScrollPane2.setViewportView(TabelaAlugueis);
+
+        CadastrarHospede1.setText("Alugar ");
+        CadastrarHospede1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastrarHospede1ActionPerformed(evt);
+            }
+        });
+
+        AtualizarDadosHospedes1.setText("Atualizar dados");
+        AtualizarDadosHospedes1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtualizarDadosHospedes1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout AlugueisPageLayout = new javax.swing.GroupLayout(AlugueisPage);
         AlugueisPage.setLayout(AlugueisPageLayout);
         AlugueisPageLayout.setHorizontalGroup(
             AlugueisPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AlugueisPageLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addContainerGap(515, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
+                .addGroup(AlugueisPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                    .addGroup(AlugueisPageLayout.createSequentialGroup()
+                        .addComponent(CadastrarHospede1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(AtualizarDadosHospedes1))
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18))
         );
         AlugueisPageLayout.setVerticalGroup(
             AlugueisPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AlugueisPageLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel8)
-                .addContainerGap(491, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(AlugueisPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CadastrarHospede1)
+                    .addComponent(AtualizarDadosHospedes1))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
-        Main.add(AlugueisPage, "card5");
+        Main.add(AlugueisPage, "cardAlugueis");
 
         ResidenciasPage.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel9.setText("Residencias");
 
+        tableResidencias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Codigo Residencia", "Endereco", "Quatidade de Quartos", "Telefone", "Email"
+            }
+        ));
+        scrollResidencias.setViewportView(tableResidencias);
+
         javax.swing.GroupLayout ResidenciasPageLayout = new javax.swing.GroupLayout(ResidenciasPage);
         ResidenciasPage.setLayout(ResidenciasPageLayout);
         ResidenciasPageLayout.setHorizontalGroup(
             ResidenciasPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ResidenciasPageLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9)
-                .addContainerGap(485, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addGroup(ResidenciasPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollResidencias, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                    .addComponent(jLabel9))
+                .addGap(22, 22, 22))
         );
         ResidenciasPageLayout.setVerticalGroup(
             ResidenciasPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ResidenciasPageLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel9)
-                .addContainerGap(491, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(scrollResidencias, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(182, Short.MAX_VALUE))
         );
 
-        Main.add(ResidenciasPage, "card4");
+        Main.add(ResidenciasPage, "cardResidencias");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -385,50 +444,61 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
-        // TODO add your handling code here:
-        Color colorEnable = new Color(161,193,224);
-        Color colordisabled = new Color(82,142,201);
-//        HomePage.setVisible(true);
-//        HospedesPage.setVisible(false);
-        
+        // TODO add your handling code here:        
         CardLayout cl = (CardLayout) Main.getLayout();
         cl.show(Main, "cardHome");
         
         btnHome.setBackground( colorEnable);
-        btnHospedes.setBackground( colordisabled);
+        btnHospedes.setBackground( colorDisabled);
+        btnResidencias.setBackground(colorDisabled);
+        btnAlugueis.setBackground(colorDisabled);
     }//GEN-LAST:event_btnHomeMouseClicked
 
     private void btnHospedesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHospedesMouseClicked
         // TODO add your handling code here:
-        Color colorEnable = new Color(161,193,224);
-        Color colorDisabled = new Color(82,142,201);
-//        HomePage.setVisible(false);
-//        HospedesPage.setVisible(true);
-        
         CardLayout cl = (CardLayout) Main.getLayout();
         cl.show(Main, "cardHospedes");
         
         btnHome.setBackground( colorDisabled);
         btnHospedes.setBackground( colorEnable);
+        btnResidencias.setBackground(colorDisabled);
+        btnAlugueis.setBackground(colorDisabled);
         
         ListarHospedes();
     }//GEN-LAST:event_btnHospedesMouseClicked
 
     private void btnResidenciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResidenciasMouseClicked
         // TODO add your handling code here:
+        CardLayout cl = (CardLayout) Main.getLayout();
+        cl.show(Main, "cardResidencias");
+        
+        btnHome.setBackground( colorDisabled);
+        btnHospedes.setBackground( colorDisabled);
+        btnResidencias.setBackground(colorEnable);
+        btnAlugueis.setBackground(colorDisabled);
+        
     }//GEN-LAST:event_btnResidenciasMouseClicked
 
     private void btnAlugueisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlugueisMouseClicked
         // TODO add your handling code here:
+        CardLayout cl = (CardLayout) Main.getLayout();
+        cl.show(Main, "cardAlugueis");
+        
+        btnHome.setBackground( colorDisabled);
+        btnHospedes.setBackground( colorDisabled);
+        btnResidencias.setBackground(colorDisabled);
+        btnAlugueis.setBackground(colorEnable);
     }//GEN-LAST:event_btnAlugueisMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void CadastrarHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarHospedeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        CadastroHospede cadastroHospede = new CadastroHospede();
+        cadastroHospede.setVisible(true);
+    }//GEN-LAST:event_CadastrarHospedeActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void AtualizarDadosHospedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarDadosHospedesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_AtualizarDadosHospedesActionPerformed
 
     private void btnBuscarHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarHospedeActionPerformed
         // TODO add your handling code here:
@@ -437,6 +507,14 @@ public class Home extends javax.swing.JFrame {
     private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+
+    private void CadastrarHospede1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarHospede1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CadastrarHospede1ActionPerformed
+
+    private void AtualizarDadosHospedes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarDadosHospedes1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AtualizarDadosHospedes1ActionPerformed
     
     private void ListarHospedes() {
         DefaultTableModel modelo = (DefaultTableModel) TabelaHospedes.getModel();
@@ -484,10 +562,15 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AlugueisPage;
+    private javax.swing.JButton AtualizarDadosHospedes;
+    private javax.swing.JButton AtualizarDadosHospedes1;
+    private javax.swing.JButton CadastrarHospede;
+    private javax.swing.JButton CadastrarHospede1;
     private javax.swing.JPanel HomePage;
     private javax.swing.JPanel HospedesPage;
     private javax.swing.JPanel Main;
     private javax.swing.JPanel ResidenciasPage;
+    private javax.swing.JTable TabelaAlugueis;
     private javax.swing.JTable TabelaHospedes;
     private javax.swing.JLabel TitleHospedes;
     private javax.swing.JPanel btnAlugueis;
@@ -495,8 +578,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel btnHome;
     private javax.swing.JPanel btnHospedes;
     private javax.swing.JPanel btnResidencias;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -508,7 +589,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JScrollPane scrollResidencias;
     private javax.swing.JPanel sidebar;
+    private javax.swing.JTable tableResidencias;
     // End of variables declaration//GEN-END:variables
 }

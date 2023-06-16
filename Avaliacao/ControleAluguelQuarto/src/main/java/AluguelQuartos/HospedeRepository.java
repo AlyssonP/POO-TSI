@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class HospedeRepository {
     
-    public void insertHospede(Hospede hospede) {
+    public boolean insertHospede(Hospede hospede) {
         Connection connection = null;
         try {
             connection = ConnectionDB.getConnection();
@@ -21,12 +21,15 @@ public class HospedeRepository {
             preparedStatement.setString(5, hospede.getEmail());
             
             preparedStatement.executeUpdate();
+            
         } catch(SQLException e) {
             System.err.println("Erro ao inserir dados do hospede: " + e.getMessage());
         } finally {
             if (connection != null) {
                 ConnectionDB.closeConnection(connection);
+                return true;
             }
+            return false;
         }
     }
     

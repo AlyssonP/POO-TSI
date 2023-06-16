@@ -17,6 +17,7 @@ public class Residencia {
         this.email = email;
         this.quartos = new ArrayList<Quarto>();
     }
+    
 
     // Método Get e Set
     public String getRua() {
