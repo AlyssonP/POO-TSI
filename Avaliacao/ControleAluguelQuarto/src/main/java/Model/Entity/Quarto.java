@@ -1,10 +1,10 @@
-package AluguelQuartos;
+package Model.Entity;
 
 public class Quarto {
     // Atributos
     private double valorDiaria;
-    private int capacidadePessoas;
-    private boolean arCondicionado, banheiraHidromassagem;
+    private int cod, capacidadePessoas;
+    private boolean arCondicionado, banheiraHidromassagem, disponivel;
 
     // Construtor
     public Quarto(double valorDiaria, int capacidadePessoas, boolean arCondicionado, boolean banheiraHidromassagem) {
@@ -12,9 +12,25 @@ public class Quarto {
         this.capacidadePessoas = capacidadePessoas;
         this.arCondicionado = arCondicionado;
         this.banheiraHidromassagem = banheiraHidromassagem;
+        disponivel = true;
+    }
+    public Quarto(int cod, double valorDiaria, int capacidadePessoas, boolean arCondicionado, boolean banheiraHidromassagem, boolean disponivel) {
+        this.cod = cod;
+        this.valorDiaria = valorDiaria;
+        this.capacidadePessoas = capacidadePessoas;
+        this.arCondicionado = arCondicionado;
+        this.banheiraHidromassagem = banheiraHidromassagem;
+        this.disponivel = disponivel;
+    }
+    
+    // Métodos Get e Set
+    public int getCod() {
+        return cod;
+    }
+    public void setCod(int cod) {
+        this.cod = cod;
     }
 
-    // Métodos Get e Set
     public double getValorDiaria() {
         return valorDiaria;
     }
@@ -42,6 +58,15 @@ public class Quarto {
     public void setBanheiraHidromassagem(boolean banheiraHidromassagem) {
         this.banheiraHidromassagem = banheiraHidromassagem;
     }
+
+    public boolean getIsDisponivel() {
+        return disponivel;
+    }
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+    
+    
 
     // toString
     public String toString() {

@@ -1,6 +1,6 @@
-package AluguelQuartos;
+package Model.Entity;
 
-import AluguelQuartos.Aluguel;
+import Model.Entity.Aluguel;
 
 import java.util.ArrayList;
 

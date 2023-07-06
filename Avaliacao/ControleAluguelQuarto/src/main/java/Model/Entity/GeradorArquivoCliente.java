@@ -1,5 +1,7 @@
-package AluguelQuartos;
+package Model.Entity;
 
+import Model.Repository.HospedeRepository;
+import Model.Entity.Hospede;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;

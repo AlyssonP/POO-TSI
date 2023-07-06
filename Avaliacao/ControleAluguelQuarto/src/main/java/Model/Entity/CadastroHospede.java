@@ -1,5 +1,6 @@
-package AluguelQuartos;
+package Model.Entity;
 
+import Model.Entity.Hospede;
 import java.util.ArrayList;
 
 public class CadastroHospede {

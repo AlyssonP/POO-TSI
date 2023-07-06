@@ -1,11 +1,11 @@
-package AluguelQuartos;
+package Model.Repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 public class ConnectionDB {
     // Atributos
-    private static final String url = "jdbc:postgresql://localhost:5432/AluguelQuarto";
+    private static final String url = "jdbc:postgresql://localhost:5432/AlugaQuartos";
     private static final String username = "postgres";
     private static final String password = "1100100";
 

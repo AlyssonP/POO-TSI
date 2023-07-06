@@ -1,4 +1,8 @@
-package AluguelQuartos;
+package Model.Entity;
+
+import Model.Repository.HospedeRepository;
+import Model.Entity.Quarto;
+import Model.Entity.Residencia;
 
 public class Main {
     public static void main(String[] args){

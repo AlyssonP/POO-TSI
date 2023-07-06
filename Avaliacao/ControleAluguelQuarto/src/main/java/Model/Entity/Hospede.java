@@ -1,4 +1,4 @@
-package AluguelQuartos;
+package Model.Entity;
 
 public class Hospede {
     // Atributos

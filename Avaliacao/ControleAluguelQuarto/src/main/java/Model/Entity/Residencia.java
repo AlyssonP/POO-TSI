@@ -1,10 +1,10 @@
-package AluguelQuartos;
+package Model.Entity;
 
 import java.util.ArrayList;
 public class Residencia {
     // Atributos
     private String rua, bairro, telefone, email;
-    private int cep, numero;
+    private int cod, cep, numero;
     private ArrayList<Quarto> quartos;
 
     // Construtor
@@ -17,9 +17,26 @@ public class Residencia {
         this.email = email;
         this.quartos = new ArrayList<Quarto>();
     }
-    
+    public Residencia(int cod, String rua,int numero,String bairro,int cep,String telefone,String email) {
+        this.cod = cod;
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.cep = cep;
+        this.telefone = telefone;
+        this.email = email;
+        this.quartos = new ArrayList<Quarto>();
+    }
 
     // Método Get e Set
+
+    public int getCod() {
+        return cod;
+    }
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
+    
     public String getRua() {
         return rua;
     }
@@ -69,6 +86,10 @@ public class Residencia {
     // Métodos Especiais
     public boolean addQuarto(Quarto quarto) {
         return quartos.add(quarto);
+    }
+    
+    public String getEndereco() {
+        return String.format("Rua: %s; Bairro: %s; n°: %d ;CEP: %d;", rua, bairro, numero, cep);
     }
 
     // toString
