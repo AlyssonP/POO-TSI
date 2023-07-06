@@ -806,28 +806,27 @@ public class Home extends javax.swing.JFrame {
 
         tabelaResidencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Rua", "Bairro", "Número", "Cep", "Telefone", "Email"
+                "Código", "Rua", "Número", "Bairro", "Cep", "Telefone", "Email"
             }
         ));
         tabelaResidencias.setSelectionBackground(new java.awt.Color(51, 102, 255));
         tabelaResidencias.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tabelaResidencias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaResidenciasMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tabelaResidencias);
 
         tabelaQuartosResidencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Valor Diária", "Capacidade de Hospede", "Ar Condicionado", "Banheira Hidromassagem"
+                "Valor Diária", "Capacidade de Hospede", "Ar Condicionado", "Banheira Hidromassagem", "Disponivel"
             }
         ));
         tabelaQuartosResidencia.setSelectionBackground(new java.awt.Color(51, 102, 255));
@@ -842,6 +841,11 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnDesselecionarResidendia.setText("Desselecionar");
+        btnDesselecionarResidendia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesselecionarResidendiaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ResidenciasPageLayout = new javax.swing.GroupLayout(ResidenciasPage);
         ResidenciasPage.setLayout(ResidenciasPageLayout);
@@ -937,6 +941,7 @@ public class Home extends javax.swing.JFrame {
         btnResidencias.setBackground(colorEnable);
         btnAlugueis.setBackground(colorDisabled);
         
+        listarResidencias();
     }//GEN-LAST:event_btnResidenciasMouseClicked
 
     private void btnAlugueisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlugueisMouseClicked
@@ -1110,7 +1115,17 @@ public class Home extends javax.swing.JFrame {
             if(aluguel == null) {
                 return;
             }
-
+            
+            if(aluguelRepository.getAluguel(codigoAluguel).getFinalizado()) {
+                JOptionPane.showMessageDialog(null, "Como o aluguel já está finalizado não é possivel alterar os dados.");
+                return;
+            }
+            
+            if(aluguelRepository.getAluguel(codigoAluguel).getPago()) {
+                JOptionPane.showMessageDialog(null, "Como o aluguel já está pago não é possivel alterar os dados.");
+                return;
+            }
+            
             aluguelRepository.updateAluguel(aluguel);
             JOptionPane.showMessageDialog(null, "Aluguel atualizado com sucesso!");
             limparCamposDadosAluguel();
@@ -1151,10 +1166,31 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(tabelaAlugueis.getSelectedRow() != -1) {
             int codigoAluguel = (int) tabelaAlugueis.getValueAt(tabelaAlugueis.getSelectedRow(), 0);
+            
+            if(aluguelRepository.getAluguel(codigoAluguel).getFinalizado()) {
+                JOptionPane.showMessageDialog(null, "O aluguel já está finalizado!");
+                return;
+            }
+            
             finalizarAluguel(codigoAluguel);
             listarQuartosDisponiveis();
         }
     }//GEN-LAST:event_btnFinalizarAluguelActionPerformed
+
+    private void tabelaResidenciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaResidenciasMouseClicked
+        // TODO add your handling code here:
+        if(tabelaResidencias.getSelectedRow() != -1) {
+            int codResidencia = (int) tabelaResidencias.getValueAt(tabelaResidencias.getSelectedRow(), 0);
+            listarQuartos(codResidencia);
+        }
+    }//GEN-LAST:event_tabelaResidenciasMouseClicked
+
+    private void btnDesselecionarResidendiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesselecionarResidendiaActionPerformed
+        // TODO add your handling code here:
+        tabelaResidencias.clearSelection();
+        limparTabelaQuartos();
+    }//GEN-LAST:event_btnDesselecionarResidendiaActionPerformed
+    
     
     // Métodos gerais
     public void desselecionar(javax.swing.JTable tabela) {
@@ -1319,7 +1355,43 @@ public class Home extends javax.swing.JFrame {
         return false;
     }
     
-    // Métodos para alguel de quartos.
+    public void listarQuartos(int codigoResidencia) {
+        DefaultTableModel tabela = (DefaultTableModel) tabelaQuartosResidencia.getModel();
+        tabela.setNumRows(0);
+        for(Quarto quarto: quartoRepository.getAllQuartosResidencia(codigoResidencia)) {
+            tabela.addRow(new Object[]{
+                quarto.getValorDiaria(),
+                quarto.getCapacidadePessoa(),
+                quarto.getArcondicionado(),
+                quarto.getBanheiraHidromassagem(),
+                (quarto.getIsDisponivel()) ? "SIM" : "NÃO"
+            });
+        }
+    }
+    
+    public void limparTabelaQuartos() {
+        DefaultTableModel tabela = (DefaultTableModel) tabelaQuartosResidencia.getModel();
+        tabela.setNumRows(0);
+    }
+    
+    // Métodos para residencia
+    public void listarResidencias() {
+        DefaultTableModel tabela = (DefaultTableModel) tabelaResidencias.getModel();
+        tabela.setNumRows(0);
+        for(Residencia residencia: residenciaRepository.getAll()) {
+            tabela.addRow(new Object[]{
+                    residencia.getCod(),
+                    residencia.getRua(), 
+                    residencia.getNumero(), 
+                    residencia.getBairro(), 
+                    residencia.getCep(),
+                    residencia.getTelefone(),
+                    residencia.getEmail()
+            });
+        }
+    }
+    
+    // Métodos para algueis de quartos.
     public void limparCamposDadosAluguel() {
         inputCpfHospedeAluguel.setText("");
         inputCodigoQuarto.setText("");
